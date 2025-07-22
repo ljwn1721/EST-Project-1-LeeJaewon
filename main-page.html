@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <title>프로젝트 1 메인 페이지</title>
+  <style>
+    .circle-btn {
+     width: 40px;
+     height: 40px;
+     border-radius: 50%;
+     background-color: #ffffff;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     padding: 0;
+     border: none;
+   }
+
+   .profile {
+     width: 36px;
+     height: 36px;
+     border-radius: 50%;
+     object-fit: fill;
+   }
+
+   .sidebar {
+    width: 100px;
+    height: 100vh;
+    padding-top: 67px; /* 상단바 높이만큼 여백 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: white;
+    border-right: 1px solid #eee;
+    z-index: 100;
+    transition: all 0.3s ease;
+  }
+
+  .sidebar a {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    color: black;
+    text-decoration: none;
+  }
+
+  .sidebar a:hover {
+     background-color: #f0f0f0;
+  }
+
+  .sidebar i {
+    font-size: 1.4rem;
+    margin-right: 12px;
+  }
+
+  .sidebar-expand{
+    width: 200px;
+    height: 100vh;
+    padding-top: 67px; /* 상단바 높이만큼 여백 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: white;
+    border-right: 1px solid #eee;
+    z-index: 100;
+    transition: all 0.3s ease;
+  }
+
+  .link-text {
+    display: none;
+    white-space: nowrap;
+  }
+  .sidebar-expand .link-text {
+    display: inline;
+  }
+  </style>
+</head>
+<body>
+
+<!-- 사이드바 -->
+<div class="sidebar" id="sidebar">
+  <a href="#"><i class="bi bi-house-door-fill"></i><span class="link-text">홈</span></a>
+  <a href="#"><i class="bi bi-lightning-fill"></i><span class="link-text">인기</span></a>
+  <a href="#"><i class="bi bi-collection-play"></i><span class="link-text">구독</span></a>
+  <a href="#"><i class="bi bi-person-circle"></i><span class="link-text">내 채널</span></a>
+  <a href="#"><i class="bi bi-clock-history"></i><span class="link-text">시청 기록</span></a>
+</div>
+
+<!-- 상단 바-->
+<nav class="d-flex justify-content-between align-items-center p-2 shadow-sm fixed-top" id="topNavBar">
+
+  <!-- 좌측 메뉴, 로고-->
+  <div class="d-flex align-items-center gap-3">
+    <button class="btn" id="menuToggleBtn">
+      <span class="fs-4">&#9776;</span> <!-- 햄버거 메뉴 -->
+    </button>
+    <a href="http://localhost:63342/untitled1/HTML_practice/LeejaewonEstPrj-1.html">
+      <img src="cut-logo.jpg"></a>
+  </div>
+
+  <!-- 중앙 검색창 -->
+  <div class="d-flex align-items-center flex-grow-1 mx-4" style="max-width: 600px;">
+    <input type="text" class="form-control rounded-start-pill" placeholder="Search">
+    <button class="btn btn-outline-secondary rounded-end-pill">🔍</button>
+  </div>
+
+  <!-- 프로필 아이콘 -->
+  <div class="dropdown">
+    <button class="circle-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <img src="profile.jpg" alt="profile" class="profile">
+    </button>
+    <ul class="dropdown-menu dropdown-menu-end">
+      <li><h6 class="dropdown-header">이재원 님</h6></li>
+      <li><a class="dropdown-item" href="#">내 채널</a></li>
+      <li><a class="dropdown-item" href="#">YouTube Studio</a></li>
+      <li><hr class="dropdown-divider"></li>
+      <li><a class="dropdown-item" href="#">설정</a></li>
+      <li><a class="dropdown-item" href="#">로그아웃</a></li>
+    </ul>
+  </div>
+</nav>
+
+<script>
+  const menuBtn = document.getElementById('menuToggleBtn');
+  const sidebar = document.getElementById('sidebar');
+  const topNav = document.getElementById('topNavBar');
+
+  menuBtn.addEventListener('click', () => {
+    sidebar.classList.toggle('sidebar-expand');
+  });
+</script>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
