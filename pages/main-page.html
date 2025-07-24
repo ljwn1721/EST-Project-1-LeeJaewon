@@ -91,9 +91,15 @@
 <!--      padding: 10px;-->
 <!--    }-->
 
-    .thumbnail-img{
+    .thumbnail-img {
       height: 200px;
       object-fit: cover;
+      border: 2px solid transparent;
+      transition: border-color 0.3s ease;
+    }
+
+    .thumbnail-img:hover {
+      border-color: #333;
     }
 
   </style>
@@ -102,7 +108,7 @@
 
 <!-- 사이드바 -->
 <div class="sidebar" id="sidebar">
-  <a href="#"><i class="bi bi-house-door-fill"></i><span class="link-text">홈</span></a>
+  <a href="main-page.html"><i class="bi bi-house-door-fill"></i><span class="link-text">홈</span></a>
   <a href="#"><i class="bi bi-lightning-fill"></i><span class="link-text">인기</span></a>
   <a href="#"><i class="bi bi-collection-play"></i><span class="link-text">구독</span></a>
   <a href="#"><i class="bi bi-person-circle"></i><span class="link-text">내 채널</span></a>
@@ -110,14 +116,14 @@
 </div>
 
 <!-- 상단 바-->
-<nav class="d-flex justify-content-between align-items-center p-2 shadow-sm fixed-top" id="topNavBar">
+<nav class="d-flex justify-content-between align-items-center p-2 shadow-sm fixed-top bg-light" id="topNavBar">
   <!-- 좌측 메뉴, 로고-->
   <div class="d-flex align-items-center gap-3">
     <button class="btn" id="menuToggleBtn">
       <span class="fs-4">&#9776;</span> <!-- 햄버거 메뉴 -->
     </button>
-    <a href="index.html">
-      <img src="cut-logo.jpg"></a>
+    <a href="main-page.html">
+      <img src="../assets/images/cut-logo.jpg"></a>
   </div>
 
   <!-- 중앙 검색창 -->
@@ -129,7 +135,7 @@
   <!-- 프로필 아이콘 -->
   <div class="dropdown">
     <button class="circle-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-      <img src="profile.jpg" alt="profile" class="profile">
+      <img src="../assets/images/profile.jpg" alt="profile" class="profile">
     </button>
     <ul class="dropdown-menu dropdown-menu-end">
       <li><h6 class="dropdown-header">--- 님</h6></li>

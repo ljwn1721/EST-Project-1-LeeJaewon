@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <title>비디오 페이지</title>
+  <style>
+    .circle-btn {
+     width: 40px;
+     height: 40px;
+     border-radius: 50%;
+     background-color: #ffffff;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     padding: 0;
+     border: none;
+     }
+
+     .profile {
+       width: 36px;
+       height: 36px;
+       border-radius: 50%;
+      object-fit: fill;
+     }
+
+    .sidebar-menu {
+      width: 200px;
+      height: 100vh;
+      padding-top: 67px; /* 상단바 높이만큼 여백 */
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: white;
+      border-right: 1px solid #eee;
+      z-index: 100;
+      transition: all 0.3s ease;
+      transform: translateX(0%);
+    }
+
+    .sidebar-menu a {
+      display: flex;
+      align-items: center;
+      padding: 12px 20px;
+      color: black;
+      text-decoration: none;
+    }
+
+    .sidebar-menu a:hover {
+       background-color: #f0f0f0;
+    }
+
+    .sidebar-menu i {
+      font-size: 1.4rem;
+      margin-right: 12px;
+    }
+
+    .sidebar-hidden {
+      transform: translateX(-100%);
+    }
+
+<!--    -->
+
+    .video-player {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #000;
+    }
+    .channel-info img {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+    }
+    .side-thumbnail img {
+      width: 100%;
+       border: 2px solid transparent;
+      border-radius: 8px;
+      aspect-ratio: 16 / 9;
+<!--          object-fit: contain;-->
+    }
+    .side-thumbnail img:hover {
+      border-color: #333;
+    }
+    .side-video {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    .side-video-title {
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+<!--    @media (max-width: 768px) {-->
+<!--      .main-content {-->
+<!--        flex-direction: column;-->
+<!--      }-->
+<!--    }-->
+
+  </style>
+</head>
+<body>
+
+<!-- 사이드바 -->
+<div class="sidebar-menu sidebar-hidden" id="sidebar-menu">
+  <a href="#"><i class="bi bi-house-door-fill"></i><span class="link-text">홈</span></a>
+  <a href="#"><i class="bi bi-lightning-fill"></i><span class="link-text">인기</span></a>
+  <a href="#"><i class="bi bi-collection-play"></i><span class="link-text">구독</span></a>
+  <a href="#"><i class="bi bi-person-circle"></i><span class="link-text">내 채널</span></a>
+  <a href="#"><i class="bi bi-clock-history"></i><span class="link-text">시청 기록</span></a>
+</div>
+
+<!-- 상단 바-->
+<nav class="d-flex justify-content-between align-items-center p-2 shadow-sm fixed-top bg-light" id="topNavBar">
+  <!-- 좌측 메뉴, 로고-->
+  <div class="d-flex align-items-center gap-3">
+    <button class="btn" id="menuToggleBtn">
+      <span class="fs-4">&#9776;</span> <!-- 햄버거 메뉴 -->
+    </button>
+    <a href="index.html">
+      <img src="../assets/images/cut-logo.jpg"></a>
+  </div>
+
+  <!-- 중앙 검색창 -->
+  <div class="d-flex align-items-center flex-grow-1 mx-4" style="max-width: 600px;">
+    <input type="text" class="form-control rounded-start-pill" placeholder="Search">
+    <button class="btn btn-outline-secondary rounded-end-pill">🔍</button>
+  </div>
+
+  <!-- 프로필 아이콘 -->
+  <div class="dropdown">
+    <button class="circle-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <img src="../assets/images/profile.jpg" alt="profile" class="profile">
+    </button>
+    <ul class="dropdown-menu dropdown-menu-end">
+      <li><h6 class="dropdown-header">이재원 님</h6></li>
+      <li><a class="dropdown-item" href="#">내 채널</a></li>
+      <li><a class="dropdown-item" href="#">YouTube Studio</a></li>
+      <li><hr class="dropdown-divider"></li>
+      <li><a class="dropdown-item" href="#">설정</a></li>
+      <li><a class="dropdown-item" href="#">로그아웃</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- 본문 콘텐츠 -->
+<div class="container-fluid d-flex gap-4 mt-4 px-4" style="padding-top: 75px;">
+  <div class="flex-grow-1 main-content">
+    <!-- 비디오 본문 -->
+    <div class="video-player mb-3 d-flex justify-content-center align-items-center text-white">
+      비디오 플레이어 영역
+    </div>
+    <h5>[     제목     ]</h5>
+    <div class="text-muted small mb-2">조회수 · 게시일</div>
+
+    <!-- 채널 정보 -->
+    <div class="d-flex align-items-center justify-content-between mb-3">
+      <div class="d-flex align-items-center gap-2 channel-info">
+        <img src="../assets/images/profile.jpg" alt="채널 프로필">
+        <div>
+          <div><strong>[업로더]</strong></div>
+        </div>
+      </div>
+      <button class="btn btn-danger">구독</button>
+    </div>
+
+    <!-- 버튼 그룹 -->
+    <div class="d-flex gap-2 mb-4">
+      <button class="btn btn-light">👍 좋아요</button>
+      <button class="btn btn-light">🔗 공유</button>
+      <button class="btn btn-light">💾 저장</button>
+    </div>
+
+    <!-- 설명 -->
+    <div class="bg-gray p-3 rounded shadow-sm mb-4">
+      설명: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+    </div>
+
+    <!-- 댓글 섹션 -->
+    <div>
+      <h6>댓글 ---개</h6>
+
+      <!-- 댓글 입력 -->
+      <div class="d-flex">
+        <div class="me-2">
+          <img src="../assets/images/profile.jpg" class="profile" alt="내 프로필">
+        </div>
+        <textarea class="form-control mb-2" rows="2" placeholder="댓글 추가..."></textarea>
+      </div>
+      <div class="d-flex justify-content-end align-items-center gap-3 mb-4">
+        <button class="btn btn-light rounded-pill px-3" disabled>댓글</button>
+      </div>
+
+      <!-- 댓글 목록 -->
+      <div class="mb-4">
+        <div class="d-flex mb-3">
+          <div class="me-2">
+            <img src="../assets/images/profile.jpg" class="profile" alt="사용자1">
+          </div>
+          <div>
+            <div><strong>@user1</strong> <span class="text-muted small">1년 전</span></div>
+            <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et</div>
+          </div>
+        </div>
+
+        <div class="d-flex mb-3">
+          <div class="me-2">
+            <img src="../assets/images/profile.jpg" class="profile" alt="사용자2">
+          </div>
+          <div>
+            <div><strong>@user2</strong> <span class="text-muted small">1년 전</span></div>
+            <div>quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate </div>
+          </div>
+        </div>
+
+        <div class="d-flex mb-3">
+          <div class="me-2">
+            <img src="../assets/images/profile.jpg" class="profile" alt="사용자3">
+          </div>
+          <div>
+            <div><strong>@user3</strong> <span class="text-muted small">1년 전</span></div>
+            <div>cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--추천영상 사이드 영역-->
+  <div style="width: 25%; min-width: 250px;">
+    <div class="side-video">
+      <div class="side-thumbnail" style="width: 40%;">
+        <img src="../assets/images/thumbnail1.jpg" class="img-thumbnail" alt="썸네일">
+      </div>
+      <div>
+        <div class="side-video-title">제목</div>
+        <div class="text-muted small">업로더 · 게시일</div>
+      </div>
+    </div>
+
+    <div class="side-video">
+      <div class="side-thumbnail" style="width: 40%;">
+        <img src="../assets/images/thumbnail2.jpg" class="img-thumbnail" alt="썸네일">
+      </div>
+      <div>
+        <div class="side-video-title">제목</div>
+        <div class="text-muted small">업로더 · 게시일</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const menuBtn = document.getElementById('menuToggleBtn');
+  const sidebar = document.getElementById('sidebar-menu');
+  const topNav = document.getElementById('topNavBar');
+
+  menuBtn.addEventListener('click', () => {
+    sidebar.classList.toggle('sidebar-hidden');
+  });
+</script>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
