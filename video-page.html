@@ -150,9 +150,10 @@
     <!-- 채널 정보 -->
     <div class="d-flex align-items-center justify-content-between mb-3">
       <div class="d-flex align-items-center gap-2 channel-info">
-        <img src="images/profile.jpg" alt="채널 프로필">
+        <img src="" class="channel-profile" alt="채널 프로필">
         <div>
-          <div><strong>[업로더]</strong></div>
+          <div><strong class="channel-name"></strong></div>
+
         </div>
       </div>
       <!-- 버튼들 -->
@@ -164,10 +165,10 @@
       </div>
     </div>
 
-
-
     <!-- 설명 -->
-    <div class="video-description bg-gray p-3 rounded shadow-sm mb-4">
+    <div class="bg-gray p-3 rounded shadow-sm mb-4">
+      <div class="channel-meta text-muted small"></div>
+      <div class="video-description"></div>
     </div>
 
     <!-- 댓글 섹션 -->
@@ -179,71 +180,65 @@
         <div class="me-2">
           <img src="images/profile.jpg" class="profile" alt="내 프로필">
         </div>
-        <textarea class="form-control mb-2" rows="2" placeholder="댓글 추가..."></textarea>
+        <textarea id="commentInput" class="form-control mb-2" rows="2" placeholder="댓글 추가..."></textarea>
       </div>
-      <div class="d-flex justify-content-end align-items-center gap-3 mb-4">
+      <div class="d-flex justify-content-end align-items-center gap-3 mb-4" id="commentBtn">
         <button class="btn btn-light rounded-pill px-3" disabled>댓글</button>
       </div>
 
-      <!-- 댓글 목록, js로 동적 생성시켜야-->
-      <div class="mb-4">
-        <div class="d-flex mb-3">
-          <div class="me-2">
-            <img src="images/profile.jpg" class="profile" alt="사용자1">
-          </div>
-          <div>
-            <div><strong>@user1</strong> <span class="text-muted small">1년 전</span></div>
-            <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et</div>
-          </div>
-        </div>
+      <!-- 댓글 목록-->
+      <div class="mb-4" id="commentList">
+<!--        <div class="d-flex mb-3">-->
+<!--          <div class="me-2">-->
+<!--            <img src="images/profile.jpg" class="profile" alt="사용자1">-->
+<!--          </div>-->
+<!--          <div>-->
+<!--            <div><strong>@user1</strong> <span class="text-muted small">1년 전</span></div>-->
+<!--            <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et</div>-->
+<!--          </div>-->
+<!--        </div>-->
 
-        <div class="d-flex mb-3">
-          <div class="me-2">
-            <img src="images/profile.jpg" class="profile" alt="사용자2">
-          </div>
-          <div>
-            <div><strong>@user2</strong> <span class="text-muted small">1년 전</span></div>
-            <div>quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate </div>
-          </div>
-        </div>
+<!--        <div class="d-flex mb-3">-->
+<!--          <div class="me-2">-->
+<!--            <img src="images/profile.jpg" class="profile" alt="사용자2">-->
+<!--          </div>-->
+<!--          <div>-->
+<!--            <div><strong>@user2</strong> <span class="text-muted small">1년 전</span></div>-->
+<!--            <div>quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate </div>-->
+<!--          </div>-->
+<!--        </div>-->
 
-        <div class="d-flex mb-3">
-          <div class="me-2">
-            <img src="images/profile.jpg" class="profile" alt="사용자3">
-          </div>
-          <div>
-            <div><strong>@user3</strong> <span class="text-muted small">1년 전</span></div>
-            <div>cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</div>
-          </div>
-        </div>
+<!--        <div class="d-flex mb-3">-->
+<!--          <div class="me-2">-->
+<!--            <img src="images/profile.jpg" class="profile" alt="사용자3">-->
+<!--          </div>-->
+<!--          <div>-->
+<!--            <div><strong>@user3</strong> <span class="text-muted small">1년 전</span></div>-->
+<!--            <div>cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</div>-->
+<!--          </div>-->
+<!--        </div>-->
       </div>
     </div>
   </div>
 
-  <!--추천영상 사이드 영역, js로 동적 생성시켜야-->
-  <div style="width: 25%; min-width: 250px;">
-    <div class="side-video">
-      <div class="side-thumbnail" style="width: 40%;">
-        <img src="thumbnails/thumbnail1.jpg" class="img-thumbnail" alt="썸네일">
-      </div>
-      <div>
-        <div class="side-video-title">제목</div>
-        <div class="text-muted small">업로더 · 게시일</div>
-      </div>
-    </div>
-
-    <div class="side-video">
-      <div class="side-thumbnail" style="width: 40%;">
-        <img src="thumbnails/thumbnail2.jpg" class="img-thumbnail" alt="썸네일">
-      </div>
-      <div>
-        <div class="side-video-title">제목</div>
-        <div class="text-muted small">업로더 · 게시일</div>
-      </div>
-    </div>
-
+  <!--추천영상 사이드 피드-->
+  <div style="width: 25%; min-width: 250px;" id="side-video-feed">
   </div>
 </div>
+
+<template id="side-feed-template">
+  <div class="side-video">
+    <div class="side-thumbnail" style="width: 40%;">
+      <img src=" " class="img-thumbnail" alt="썸네일">
+    </div>
+    <div>
+      <div class="side-video-title"></div>
+      <div class="side-uploader text-muted small"></div>
+      <div class="side-meta text-muted small"></div>
+    </div>
+  </div>
+</template>
+
 
 <!--페이지 스크립트-->
 <script src="js/video.js"></script>

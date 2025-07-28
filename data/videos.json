@@ -1,30 +1,36 @@
 [
   {
     "id": "1",
-    "title": "영상 1",
+    "title": "Rainy City",
+    "uploader": "Paintings by Dusan",
+    "profile": "images/profile.jpg",
     "description": ".",
-    "thumbnail": "thumbnails/thumbnail1.jpg",
-    "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    "views": "21400",
-    "uploaded": "2024-04-21"
+    "thumbnail": "https://img.youtube.com/vi/Pb8rJ2qGBkM/hqdefault.jpg",
+    "videoUrl": "https://www.youtube.com/embed/Pb8rJ2qGBkM?si=RGIUPLBPkI_kLEn3" ,
+    "views": "741100",
+    "uploaded": "2023-07-26"
   },
   {
     "id": "2",
-    "title": "영상 2",
+    "title": "ミユビシギ",
+    "uploader": "misakikun000",
+    "profile": "images/profile.jpg",
     "description": "..",
-    "thumbnail": "thumbnails/thumbnail2.jpg",
+    "thumbnail": "https://img.youtube.com/vi/iEtIg5JKCDM/hqdefault.jpg",
     "videoUrl": "https://www.youtube.com/embed/iEtIg5JKCDM?si=Hdi2jqTBTqvBRJCA" ,
-    "views": "241",
-    "uploaded": "2025-04-09"
+    "views": "57431",
+    "uploaded": "2012-01-04"
   },
   {
     "id": "3",
-    "title": "영상 3",
+    "title": "Cute Hamster Eating Cucumber",
+    "uploader": "Pet On Tube",
+    "profile": "images/profile.jpg",
     "description": "...",
-    "thumbnail": "thumbnails/thumbnail3.jpg",
+    "thumbnail": "https://img.youtube.com/vi/68HmKZrsB34/hqdefault.jpg",
     "videoUrl": "https://www.youtube.com/embed/68HmKZrsB34?si=4deVvqSlBkOH55iY" ,
-    "views": "121462",
-    "uploaded": "2022-10-12"
+    "views": "14118",
+    "uploaded": "2019-07-02"
   }
 
 ]
