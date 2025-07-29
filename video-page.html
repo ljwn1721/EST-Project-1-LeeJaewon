@@ -153,15 +153,21 @@
         <img src="" class="channel-profile" alt="채널 프로필">
         <div>
           <div><strong class="channel-name"></strong></div>
-
         </div>
+        <button class="btn btn-danger">구독</button>
       </div>
       <!-- 버튼들 -->
       <div class="d-flex gap-2 mb-4">
-        <button class="btn btn-danger">구독</button>
-        <button class="btn btn-light">👍 좋아요</button>
+        <div class="d-flex align-items-center mx-4">
+          <button id="likeBtn" class="btn btn-outline-secondary rounded-start-pill">
+            <i id="likeIcon" class="bi bi-hand-thumbs-up"></i> <span class="likesNumber"></span>
+          </button>
+          <button id="dislikeBtn" class="btn btn-outline-secondary rounded-end-pill">
+            <i id="dislikeIcon" class="bi bi-hand-thumbs-down"></i>
+          </button>
+        </div>
         <button class="btn btn-light">🔗 공유</button>
-        <button class="btn btn-light">💾 저장</button>
+
       </div>
     </div>
 
@@ -173,17 +179,17 @@
 
     <!-- 댓글 섹션 -->
     <div>
-      <h6>댓글 ---개</h6>
+      <h6 class="commentsNumber"></h6>
 
       <!-- 댓글 입력 -->
       <div class="d-flex">
         <div class="me-2">
-          <img src="images/profile.jpg" class="profile" alt="내 프로필">
+          <img src=" " id="commentProfile" class="profile" alt="내 프로필">
         </div>
         <textarea id="commentInput" class="form-control mb-2" rows="2" placeholder="댓글 추가..."></textarea>
       </div>
-      <div class="d-flex justify-content-end align-items-center gap-3 mb-4" id="commentBtn">
-        <button class="btn btn-light rounded-pill px-3" disabled>댓글</button>
+      <div class="d-flex justify-content-end align-items-center gap-3 mb-4" >
+        <button id="commentBtn" class="btn btn-light rounded-pill px-3" disabled>댓글</button>
       </div>
 
       <!-- 댓글 목록-->

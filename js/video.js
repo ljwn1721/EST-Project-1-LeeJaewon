@@ -1,3 +1,19 @@
+//유저 정보 반영
+let userData = {};
+let commentCount = 0;
+let likeCount = 0;
+fetch('data/user.json')
+  .then(response => response.json())
+  .then(data => {
+    userData = data;
+
+    const commentProfileImg = document.getElementById('commentProfile');
+    commentProfileImg.src = userData.profile
+  })
+  .catch(error => {
+    console.error('유저 정보 불러오기 실패:', error);
+  });
+
 const urlParams = new URLSearchParams(window.location.search);
 const videoId = urlParams.get('videoId');
 const sideFeed = document.getElementById("side-video-feed");
@@ -11,6 +27,14 @@ fetch("data/videos.json")
       alert("해당 영상을 찾을 수 없습니다.");
       return;
     }
+
+    //좋아요 수 반영
+    likeCount = parseInt(video.likes);
+    document.querySelector(".likesNumber").textContent = `${likeCount}`;
+
+    commentCount = parseInt(video.comments); //댓글 수 반영
+    //댓글 표시
+    document.querySelector(".commentsNumber").textContent = `댓글 ${commentCount} 개`
     //영상 표시
     document.querySelector('.video-player').innerHTML = `
       <iframe width="100%" height="100%"
@@ -39,6 +63,7 @@ fetch("data/videos.json")
 
         sideFeed.appendChild(clone);
     });
+
   });
 
 //사이드 메뉴 토글
@@ -50,16 +75,17 @@ menuBtn.addEventListener('click', () => {
   sidebar.classList.toggle('sidebar-hidden');
 });
 
-// 댓글
+
+// 댓글 달기
+
 const commentInput = document.getElementById('commentInput');
 const commentButton = document.getElementById('commentBtn');
 const commentList = document.getElementById('commentList');
-
 // 입력 감지해서 버튼 활성화/비활성화
 commentInput.addEventListener('input', () => {
-  commentButton.disabled = commentInput.value.trim() === '';
+  const isEmpty = commentInput.value.trim() === '';
+  commentButton.disabled = isEmpty;
 });
-
 // 댓글 추가
 commentButton.addEventListener('click', () => {
   const commentText = commentInput.value.trim();
@@ -68,16 +94,56 @@ commentButton.addEventListener('click', () => {
   const commentHtml = `
     <div class="d-flex mb-3">
       <div class="me-2">
-        <img src="images/profile.jpg" class="profile" alt="내 프로필">
+        <img src="${userData.profile}" class="profile" alt="내 프로필">
       </div>
       <div>
-        <div><strong>@me</strong> <span class="text-muted small">방금 전</span></div>
+        <div><strong>${userData.handle}</strong></div>
         <div>${commentText}</div>
       </div>
     </div>
   `;
-
   commentList.insertAdjacentHTML('afterbegin', commentHtml); // 가장 위에 추가
   commentInput.value = '';
   commentButton.disabled = true;
+
+  commentCount++;
+  document.querySelector(".commentsNumber").textContent = `댓글 ${commentCount} 개`;
+});
+
+//좋아요 / 싫어요 버튼
+const likeButton = document.getElementById('likeBtn');
+const dislikeButton = document.getElementById('dislikeBtn');
+const likeIcon = document.getElementById('likeIcon');
+const dislikeIcon = document.getElementById('dislikeIcon');
+
+likeBtn.addEventListener('click', () => {
+  const isLiked = likeIcon.classList.contains('bi-hand-thumbs-up-fill');
+  if(!isLiked){
+    likeCount++;
+    document.querySelector(".likesNumber").textContent = `${likeCount}`
+  } else{
+    likeCount--;
+    document.querySelector(".likesNumber").textContent = `${likeCount}`
+  }
+  //아이콘 토글
+  likeIcon.classList.toggle('bi-hand-thumbs-up', isLiked);
+  likeIcon.classList.toggle('bi-hand-thumbs-up-fill', !isLiked);
+  // 싫어요 해제
+  dislikeIcon.classList.remove('bi-hand-thumbs-down-fill');
+  dislikeIcon.classList.add('bi-hand-thumbs-down');
+});
+
+dislikeBtn.addEventListener('click', () => {
+  const isLiked = likeIcon.classList.contains('bi-hand-thumbs-up-fill');
+  const isDisliked = dislikeIcon.classList.contains('bi-hand-thumbs-down-fill');
+  if(isLiked && !isDisliked){
+      likeCount--;
+      document.querySelector(".likesNumber").textContent = `${likeCount}`
+  }
+  //아이콘 토글
+  dislikeIcon.classList.toggle('bi-hand-thumbs-down', isDisliked);
+  dislikeIcon.classList.toggle('bi-hand-thumbs-down-fill', !isDisliked);
+  //좋아요 해제
+  likeIcon.classList.remove('bi-hand-thumbs-up-fill');
+  likeIcon.classList.add('bi-hand-thumbs-up');
 });
