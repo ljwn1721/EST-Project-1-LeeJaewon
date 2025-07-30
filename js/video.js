@@ -7,8 +7,12 @@ fetch('data/user.json')
   .then(data => {
     userData = data;
 
-    const commentProfileImg = document.getElementById('commentProfile');
-    commentProfileImg.src = userData.profile
+    const myProfileImg = document.querySelectorAll('.myProfile');
+    myProfileImg.forEach(element => {
+      element.src = userData.profile;
+    });
+    document.querySelector('.nickname').textContent = userData.name;
+    document.querySelector('.handle').textContent = userData.handle;
   })
   .catch(error => {
     console.error('유저 정보 불러오기 실패:', error);
@@ -77,7 +81,6 @@ menuBtn.addEventListener('click', () => {
 
 
 // 댓글 달기
-
 const commentInput = document.getElementById('commentInput');
 const commentButton = document.getElementById('commentBtn');
 const commentList = document.getElementById('commentList');
@@ -146,4 +149,16 @@ dislikeBtn.addEventListener('click', () => {
   //좋아요 해제
   likeIcon.classList.remove('bi-hand-thumbs-up-fill');
   likeIcon.classList.add('bi-hand-thumbs-up');
+});
+
+// 프로필 버튼 클릭 시 메뉴 토글
+profileBtn.addEventListener("click", () => {
+  profileMenu.classList.toggle("d-none");
+});
+
+// 메뉴 외부 클릭 시 닫기
+document.addEventListener("click", (e) => {
+  if (!profileBtn.contains(e.target) && !profileMenu.contains(e.target)) {
+    profileMenu.classList.add("d-none");
+  }
 });

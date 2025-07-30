@@ -26,6 +26,47 @@
       object-fit: fill;
      }
 
+     .profile-menu {
+       position: absolute;
+       top: 50px;
+       right: 0;
+       width: 250px;
+       background: white;
+       border-radius: 10px;
+       box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+       padding: 12px;
+       z-index: 1000;
+    }
+
+    .profile-info {
+       display: flex;
+       gap: 10px;
+       align-items: center;
+       margin-bottom: 8px;
+    }
+    .nickname {
+       font-weight: bold;
+    }
+
+    .handle {
+       color: gray;
+       font-size: 14px;
+    }
+
+    .view-channel {
+       color: #1a73e8;
+       font-size: 14px;
+       text-decoration: none;
+    }
+
+    .menu-item {
+       padding: 8px 0;
+       cursor: pointer;
+    }
+    .menu-item:hover {
+       background-color: #f2f2f2;
+    }
+
     .sidebar-menu {
       width: 200px;
       height: 100vh;
@@ -73,13 +114,24 @@
       height: 48px;
       border-radius: 50%;
     }
+
+    .side-thumbnail {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+
     .side-thumbnail img {
       width: 100%;
-       border: 2px solid transparent;
+      height: 100%;
+      object-fit: cover;
+      border: 2px solid transparent;
       border-radius: 8px;
-      aspect-ratio: 16 / 9;
-<!--          object-fit: contain;-->
+      transition: border-color 0.3s;
     }
+
     .side-thumbnail img:hover {
       border-color: #333;
     }
@@ -99,11 +151,12 @@
 
 <!-- 사이드바 -->
 <div class="sidebar-menu sidebar-hidden" id="sidebar-menu">
-  <a href="main-page.html"><i class="bi bi-house-door-fill"></i><span class="link-text">홈</span></a>
-  <a href="#"><i class="bi bi-lightning-fill"></i><span class="link-text">인기</span></a>
-  <a href="#"><i class="bi bi-collection-play"></i><span class="link-text">구독</span></a>
-  <a href="#"><i class="bi bi-person-circle"></i><span class="link-text">내 채널</span></a>
-  <a href="#"><i class="bi bi-clock-history"></i><span class="link-text">시청 기록</span></a>
+  <a href="main-page.html"><i class="bi bi-house-door-fill"></i>홈</a>
+  <a href="#"><i class="bi bi-lightning-fill"></i>인기</a>
+  <a href="#"><i class="bi bi-collection-play"></i>구독</a>
+  <a href="#"><i class="bi bi-person-circle"></i>내 채널</a>
+  <a href="#"><i class="bi bi-clock-history"></i>시청 기록</a>
+
 </div>
 
 <!-- 상단 바-->
@@ -123,19 +176,23 @@
     <button class="btn btn-outline-secondary rounded-end-pill">🔍</button>
   </div>
 
-  <!-- 프로필 아이콘 -->
-  <div class="dropdown">
-    <button class="circle-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-      <img src="images/profile.jpg" alt="profile" class="profile">
-    </button>
-    <ul class="dropdown-menu dropdown-menu-end">
-      <li><h6 class="dropdown-header">--- 님</h6></li>
-      <li><a class="dropdown-item" href="#">내 채널</a></li>
-      <li><a class="dropdown-item" href="#">YouTube Studio</a></li>
-      <li><hr class="dropdown-divider"></li>
-      <li><a class="dropdown-item" href="#">설정</a></li>
-      <li><a class="dropdown-item" href="#">로그아웃</a></li>
-    </ul>
+  <!-- 프로필 메뉴 아이콘 -->
+  <div>
+    <button id="profileBtn" class="circle-btn"><img src="" alt="profile" class="profile  myProfile"></button>
+    <div id="profileMenu" class="profile-menu d-none">
+      <div class="profile-info">
+        <div class="profile"><img src="" alt="profile" class="profile myProfile"></div>
+        <div>
+          <div class="nickname"></div>
+          <div class="handle"></div>
+          <a href="#" class="view-channel">내 채널 보기</a>
+        </div>
+      </div>
+      <hr />
+      <div class="menu-item">Google 계정</div>
+      <div class="menu-item">계정 전환</div>
+      <div class="menu-item">로그아웃</div>
+    </div>
   </div>
 </nav>
 
@@ -184,7 +241,7 @@
       <!-- 댓글 입력 -->
       <div class="d-flex">
         <div class="me-2">
-          <img src=" " id="commentProfile" class="profile" alt="내 프로필">
+          <img src=" " id="commentProfile" class="profile myProfile" alt="내 프로필">
         </div>
         <textarea id="commentInput" class="form-control mb-2" rows="2" placeholder="댓글 추가..."></textarea>
       </div>
@@ -234,10 +291,10 @@
 
 <template id="side-feed-template">
   <div class="side-video">
-    <div class="side-thumbnail" style="width: 40%;">
+    <div class="side-thumbnail" style="width: 50%;">
       <img src=" " class="img-thumbnail" alt="썸네일">
     </div>
-    <div>
+    <div style="width: 50%;">
       <div class="side-video-title"></div>
       <div class="side-uploader text-muted small"></div>
       <div class="side-meta text-muted small"></div>
