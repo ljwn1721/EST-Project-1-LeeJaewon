@@ -162,3 +162,15 @@ document.addEventListener("click", (e) => {
     profileMenu.classList.add("d-none");
   }
 });
+
+// 사이드바 외부 클릭 시 닫기
+document.addEventListener("click", (e) => {
+  const isSidebarExpanded = sidebar.classList.contains("sidebar-menu");
+  const clickedInsideSidebar = sidebar.contains(e.target);
+  const clickedMenuButton = menuBtn.contains(e.target);
+
+  if (isSidebarExpanded && !clickedInsideSidebar && !clickedMenuButton) {
+    sidebar.classList.remove("sidebar-expand");
+    sidebar.classList.add("sidebar-hidden");
+  }
+});

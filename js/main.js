@@ -16,12 +16,13 @@ fetch('data/user.json')
     console.error('유저 정보 불러오기 실패:', error);
   });
 
-//썸네일 카드 생성
-document.addEventListener("DOMContentLoaded", () => {
-  const container = document.getElementById("video-container");
+//썸네일 카드 생성 함수
+function loadVideos(jsonPath) {
+  const videoContainer = document.getElementById("video-container");
   const template = document.getElementById("video-card-template");
+  videoContainer.innerHTML = ""; // 기존 내용 제거
 
-  fetch("data/videos.json")
+  fetch(jsonPath)
     .then(res => res.json())
     .then(videos => {
       videos.forEach(video => {
@@ -30,17 +31,53 @@ document.addEventListener("DOMContentLoaded", () => {
         clone.querySelector(".card-title").textContent = video.title;
         clone.querySelector(".card-views").textContent = "조회수: " + video.views;
         clone.querySelector(".card-uploaded").textContent = "업로드: " + video.uploaded;
+        clone.querySelector(".uploader-profile").src = video.profile;
+        clone.querySelector(".uploader-name").textContent = video.uploader;
 
-        //클릭시 비디오 페이지 이동
+        //비디오 페이지 링크 설정
         clone.querySelector(".card").addEventListener("click", () => {
-            window.location.href = `video-page.html?videoId=${video.id}`;
-          });
+          window.location.href = `video-page.html?videoId=${video.id}`;
+        });
 
-        container.appendChild(clone);
+        videoContainer.appendChild(clone);
       });
     })
-    .catch(err => console.error("JSON 불러오기 실패:", err));
+    .catch(err => console.error("영상 불러오기 실패:", err));
+}
+//문서 로드 시 썸네일 카드 생성
+document.addEventListener("DOMContentLoaded", () => {
+    const params = new URLSearchParams(window.location.search);
+    const tab = params.get("tab");
+
+    if (tab === "subscribed") {
+      loadVideos("data/subscribed.json");
+      // 탭 하이라이트
+      document.querySelectorAll(".subscription-tab").forEach(tab => tab.classList.add("highlighted"));
+      document.querySelectorAll(".home-tab").forEach(tab => tab.classList.remove("highlighted"));
+    } else { //기본 => 홈 탭
+      loadVideos("data/videos.json");
+      document.querySelectorAll(".home-tab").forEach(tab => tab.classList.add("highlighted"));
+      document.querySelectorAll(".subscription-tab").forEach(tab => tab.classList.remove("highlighted"));
+    }
 });
+////구독 탭 ->구독 영상 표시, 구독 탭 하이라이트
+//document.querySelectorAll(".subscription-tab").forEach(tab => {
+//  tab.addEventListener("click", (e) => {
+//    e.preventDefault();
+//    loadVideos("data/subscribed.json");
+//    document.querySelectorAll(".subscription-tab").forEach(tab => tab.classList.add("highlighted"));
+//    document.querySelectorAll(".home-tab").forEach(tab => tab.classList.remove("highlighted"));
+// });
+//});
+////홈 탭 -> 일반 영상 표시, 홈 탭 하이라이트
+//document.querySelectorAll(".home-tab").forEach(tab => {
+//  tab.addEventListener("click", (e) => {
+//    e.preventDefault();
+//    loadVideos("data/videos.json");
+//    document.querySelectorAll(".subscription-tab").forEach(tab => tab.classList.remove("highlighted"));
+//    document.querySelectorAll(".home-tab").forEach(tab => tab.classList.add("highlighted"));
+// });
+//});
 
 //메뉴 버튼 사이드바 토글 & 레이아웃 마진 조정
 const menuBtn = document.getElementById('menuToggleBtn');
@@ -59,18 +96,7 @@ menuBtn.addEventListener('click', () => {
   sidebar.classList.toggle('sidebar-hidden');
   adjustLayout();
 });
-// 사이드바 외부 클릭 시 닫기
-document.addEventListener("click", (e) => {
-  const isSidebarExpanded = sidebar.classList.contains("sidebar-expand");
-  const clickedInsideSidebar = sidebar.contains(e.target);
-  const clickedMenuButton = menuBtn.contains(e.target);
 
-  if (isSidebarExpanded && !clickedInsideSidebar && !clickedMenuButton) {
-    sidebar.classList.remove("sidebar-expand");
-    sidebar.classList.add("sidebar-hidden");
-    adjustLayout();
-  }
-});
 window.addEventListener("DOMContentLoaded", adjustLayout);
 window.addEventListener("resize", adjustLayout);
 
@@ -83,7 +109,7 @@ profileBtn.addEventListener("click", () => {
   profileMenu.classList.toggle("d-none");
 });
 
-// 메뉴 외부 클릭 시 닫기
+// 프로필 메뉴 외부 클릭 시 닫기
 document.addEventListener("click", (e) => {
   if (!profileBtn.contains(e.target) && !profileMenu.contains(e.target)) {
     profileMenu.classList.add("d-none");

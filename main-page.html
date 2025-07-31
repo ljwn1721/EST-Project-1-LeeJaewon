@@ -88,7 +88,7 @@
     }
 
     .sidebar a:hover {
-       background-color: #f0f0f0;
+       background-color: #e0e0e0;
     }
 
     .sidebar i {
@@ -132,23 +132,31 @@
       border-color: #333;
     }
 
+    .card:hover {
+       background-color: #e0e0e0;
+    }
+
+    .highlighted{
+      background-color: #e0e0e0;
+    }
+
   </style>
 </head>
 <body>
 
 <!-- 사이드바 -->
 <div class="sidebar" id="sidebar">
-  <a href="main-page.html"><i class="bi bi-house-door-fill"></i></a>
+  <a href="main-page.html" class="home-tab highlighted"><i class="bi bi-house-door-fill"></i></a>
   <a href="#"><i class="bi bi-lightning-fill"></i></a>
-  <a href="#"><i class="bi bi-collection-play"></i></a>
+  <a href="?tab=subscribed" class="subscription-tab"><i class="bi bi-collection-play"></i></a>
   <a href="#"><i class="bi bi-person-circle"></i></a>
   <a href="#"><i class="bi bi-clock-history"></i></a>
 </div>
 
-<div class="sidebar sidebar-hidden" id="sidebar-expand">
-  <a href="main-page.html"><i class="bi bi-house-door-fill"></i><span class="link-text">홈</span></a>
+<div class="sidebar sidebar-expand" id="sidebar-expand">
+  <a href="main-page.html" class="home-tab highlighted"><i class="bi bi-house-door-fill"></i><span class="link-text">홈</span></a>
   <a href="#"><i class="bi bi-lightning-fill"></i><span class="link-text">인기</span></a>
-  <a href="#"><i class="bi bi-collection-play"></i><span class="link-text">구독</span></a>
+  <a href="?tab=subscribed" class="subscription-tab"><i class="bi bi-collection-play"></i><span class="link-text">구독</span></a>
   <a href="#"><i class="bi bi-person-circle"></i><span class="link-text">내 채널</span></a>
   <a href="#"><i class="bi bi-clock-history"></i><span class="link-text">시청 기록</span></a>
 </div>
@@ -186,6 +194,8 @@
       <div class="menu-item">Google 계정</div>
       <div class="menu-item">계정 전환</div>
       <div class="menu-item">로그아웃</div>
+      <hr />
+      <div class="menu-item">설정</div>
     </div>
   </div>
 
@@ -198,6 +208,10 @@
       <img src="" class="thumbnail-img" alt="이미지">
       <div class="card-body">
         <h5 class="card-title"></h5>
+        <div class="d-flex align-items-center mb-2">
+          <img src="" class="profile me-2 uploader-profile" alt="업로더 프로필">
+          <div class="uploader-name fw-bold small"></div>
+        </div>
         <p class="gap-2">
           <span class="card-views"></span>
           <span class="card-uploaded"></span>
