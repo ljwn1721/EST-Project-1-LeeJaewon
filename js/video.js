@@ -127,7 +127,7 @@ commentButton.addEventListener('click', () => {
       </div>
       <div>
         <div><strong>${userData.handle}</strong></div>
-        <div>${commentText}</div>
+        <div class="comment-text">${commentText}</div>
       </div>
     </div>
   `;
