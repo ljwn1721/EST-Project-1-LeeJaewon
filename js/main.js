@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const params = new URLSearchParams(window.location.search);
     const tab = params.get("tab");
 
-    if (tab === "subscribed") {
+    if (tab === "subscribed") {  //탭 파라미터 = 구독이면 구독 목록 로드
       loadVideos("data/subscribed.json");
       // 탭 하이라이트
       document.querySelectorAll(".subscription-tab").forEach(tab => tab.classList.add("highlighted"));

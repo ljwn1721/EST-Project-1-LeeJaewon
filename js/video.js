@@ -67,7 +67,7 @@ fetch("data/videos.json")
 
         sideFeed.appendChild(clone);
     });
-
+    document.title = video.title; //문서 타이틀 = 영상 제목
   });
 
 //사이드 메뉴 토글
