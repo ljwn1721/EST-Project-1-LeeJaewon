@@ -36,7 +36,14 @@ function loadVideos(jsonPath) {
 
         //비디오 페이지 링크 설정
         clone.querySelector(".card").addEventListener("click", () => {
-          window.location.href = `video-page.html?videoId=${video.id}`;
+          const currentParams = new URLSearchParams(window.location.search);
+          const tab = currentParams.get("tab"); // 현재 탭 상태
+
+          if (tab === "subscribed") {
+            window.location.href = `video-page.html?videoId=${video.id}&tab=subscribed`;
+          } else {
+            window.location.href = `video-page.html?videoId=${video.id}`;
+          }
         });
 
         videoContainer.appendChild(clone);
@@ -54,10 +61,12 @@ document.addEventListener("DOMContentLoaded", () => {
       // 탭 하이라이트
       document.querySelectorAll(".subscription-tab").forEach(tab => tab.classList.add("highlighted"));
       document.querySelectorAll(".home-tab").forEach(tab => tab.classList.remove("highlighted"));
+      document.title = "구독";
     } else { //기본 => 홈 탭
       loadVideos("data/videos.json");
       document.querySelectorAll(".home-tab").forEach(tab => tab.classList.add("highlighted"));
       document.querySelectorAll(".subscription-tab").forEach(tab => tab.classList.remove("highlighted"));
+      document.title = "홈";
     }
 });
 ////구독 탭 ->구독 영상 표시, 구독 탭 하이라이트
