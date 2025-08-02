@@ -23,7 +23,6 @@ project-root/
 
 ## 적용된 스택 및 세부 사항
 
-### Frontend
 - **HTML5**
   - `index.html`, `video-page.html`
   - 시맨틱 태그 기반 레이아웃
