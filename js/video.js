@@ -80,20 +80,22 @@ fetch(mainJsonPath)
 fetch(sideJsonPath)
   .then(res => res.json())
   .then(sideVideos => {
-    sideVideos.forEach(video => {
-      const clone = template.content.cloneNode(true);
-      clone.querySelector("img").src = video.thumbnail;
-      clone.querySelector(".side-video-title").textContent = video.title;
-      clone.querySelector(".side-uploader").textContent = video.uploader;
-      clone.querySelector(".side-meta").textContent = `조회수 ${video.views} · ${video.uploaded}`;
+      sideVideos
+          .filter(video => video.id !== videoId)  // 현재 재생 영상 제외
+          .forEach(video => {
+              const clone = template.content.cloneNode(true);
+              clone.querySelector("img").src = video.thumbnail;
+              clone.querySelector(".side-video-title").textContent = video.title;
+              clone.querySelector(".side-uploader").textContent = video.uploader;
+              clone.querySelector(".side-meta").textContent = `조회수 ${video.views} · ${video.uploaded}`;
 
-      // 추천 영상 클릭 시 이동
-      clone.querySelector(".side-video").addEventListener("click", () => {
-        window.location.href = `video-page.html?videoId=${video.id}`;
-      });
+              // 추천 영상 클릭 시 이동
+              clone.querySelector(".side-video").addEventListener("click", () => {
+                  window.location.href = `video-page.html?videoId=${video.id}`;
+              });
 
-      sideFeed.appendChild(clone);
-    });
+              sideFeed.appendChild(clone);
+          });
   });
 
 //사이드 메뉴 토글

@@ -69,24 +69,6 @@ document.addEventListener("DOMContentLoaded", () => {
       document.title = "홈";
     }
 });
-////구독 탭 ->구독 영상 표시, 구독 탭 하이라이트
-//document.querySelectorAll(".subscription-tab").forEach(tab => {
-//  tab.addEventListener("click", (e) => {
-//    e.preventDefault();
-//    loadVideos("data/subscribed.json");
-//    document.querySelectorAll(".subscription-tab").forEach(tab => tab.classList.add("highlighted"));
-//    document.querySelectorAll(".home-tab").forEach(tab => tab.classList.remove("highlighted"));
-// });
-//});
-////홈 탭 -> 일반 영상 표시, 홈 탭 하이라이트
-//document.querySelectorAll(".home-tab").forEach(tab => {
-//  tab.addEventListener("click", (e) => {
-//    e.preventDefault();
-//    loadVideos("data/videos.json");
-//    document.querySelectorAll(".subscription-tab").forEach(tab => tab.classList.remove("highlighted"));
-//    document.querySelectorAll(".home-tab").forEach(tab => tab.classList.add("highlighted"));
-// });
-//});
 
 //메뉴 버튼 사이드바 토글 & 레이아웃 마진 조정
 const menuBtn = document.getElementById('menuToggleBtn');
