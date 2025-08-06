@@ -58,21 +58,7 @@ fetch(mainJsonPath)
     document.querySelector('.channel-name').textContent = video.uploader;
     document.querySelector('.channel-meta').textContent = `조회수 ${video.views} · ${video.uploaded}`;
     document.querySelector('.video-description').textContent = video.description;
-//    //사이드 피드 생성
-//    videos.forEach(video => {
-//        const clone = template.content.cloneNode(true);
-//        clone.querySelector("img").src = video.thumbnail;
-//        clone.querySelector(".side-video-title").textContent = video.title;
-//        clone.querySelector(".side-uploader").textContent = video.uploader;
-//        clone.querySelector(".side-meta").textContent = `조회수 ${video.views} · ${video.uploaded}`;
-//
-//        //클릭시 비디오 페이지 이동
-//        clone.querySelector(".side-video").addEventListener("click", () => {
-//            window.location.href = `video-page.html?videoId=${video.id}`;
-//        });
-//
-//        sideFeed.appendChild(clone);
-//    });
+
     document.title = video.title; //문서 타이틀 = 영상 제목
   });
 

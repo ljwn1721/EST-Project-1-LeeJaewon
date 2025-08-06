@@ -16,40 +16,50 @@ fetch('data/user.json')
     console.error('유저 정보 불러오기 실패:', error);
   });
 
-//썸네일 카드 생성 함수
-function loadVideos(jsonPath) {
-  const videoContainer = document.getElementById("video-container");
-  const template = document.getElementById("video-card-template");
-  videoContainer.innerHTML = ""; // 기존 내용 제거
+//필터링 함수
+function filterVideos(videos, keyword) {
+    return videos.filter(video =>
+        video.title.toLowerCase().includes(keyword) ||
+        video.uploader.toLowerCase().includes(keyword)
+    );
+}
 
-  fetch(jsonPath)
-    .then(res => res.json())
-    .then(videos => {
-      videos.forEach(video => {
-        const clone = template.content.cloneNode(true);
-        clone.querySelector("img").src = video.thumbnail;
-        clone.querySelector(".card-title").textContent = video.title;
-        clone.querySelector(".card-views").textContent = "조회수: " + video.views;
-        clone.querySelector(".card-uploaded").textContent = "업로드: " + video.uploaded;
-        clone.querySelector(".uploader-profile").src = video.profile;
-        clone.querySelector(".uploader-name").textContent = video.uploader;
+//컨텐츠 내용 생성 함수
+function loadVideos(jsonPath, keyword = "") {
+    const videoContainer = document.getElementById("video-container");
+    const template = document.getElementById("video-card-template");
+    videoContainer.innerHTML = "";
 
-        //비디오 페이지 링크 설정
-        clone.querySelector(".card").addEventListener("click", () => {
-          const currentParams = new URLSearchParams(window.location.search);
-          const tab = currentParams.get("tab"); // 현재 탭 상태
+    fetch(jsonPath)
+        .then(res => res.json())
+        .then(videos => {
+            if (keyword) {
+                const lowerKeyword = keyword.toLowerCase();
+                videos = filterVideos(videos, lowerKeyword);
+            }
 
-          if (tab === "subscribed") {
-            window.location.href = `video-page.html?videoId=${video.id}&tab=subscribed`;
-          } else {
-            window.location.href = `video-page.html?videoId=${video.id}`;
-          }
+            videos.forEach(video => {
+                const clone = template.content.cloneNode(true);
+                clone.querySelector("img").src = video.thumbnail;
+                clone.querySelector(".card-title").textContent = video.title;
+                clone.querySelector(".card-views").textContent = "조회수: " + video.views;
+                clone.querySelector(".card-uploaded").textContent = "업로드: " + video.uploaded;
+                clone.querySelector(".uploader-profile").src = video.profile;
+                clone.querySelector(".uploader-name").textContent = video.uploader;
+
+                clone.querySelector(".card").addEventListener("click", () => {
+                    const currentParams = new URLSearchParams(window.location.search);
+                    const tab = currentParams.get("tab");
+                    if (tab === "subscribed") {
+                        window.location.href = `video-page.html?videoId=${video.id}&tab=subscribed`;
+                    } else {
+                        window.location.href = `video-page.html?videoId=${video.id}`;
+                    }
+                });
+
+                videoContainer.appendChild(clone);
+            });
         });
-
-        videoContainer.appendChild(clone);
-      });
-    })
-    .catch(err => console.error("영상 불러오기 실패:", err));
 }
 //문서 로드 시 썸네일 카드 생성
 document.addEventListener("DOMContentLoaded", () => {
@@ -69,6 +79,8 @@ document.addEventListener("DOMContentLoaded", () => {
       document.title = "홈";
     }
 });
+
+
 
 //메뉴 버튼 사이드바 토글 & 레이아웃 마진 조정
 const menuBtn = document.getElementById('menuToggleBtn');
@@ -105,4 +117,23 @@ document.addEventListener("click", (e) => {
   if (!profileBtn.contains(e.target) && !profileMenu.contains(e.target)) {
     profileMenu.classList.add("d-none");
   }
+});
+
+//검색 동작
+const searchBtn = document.getElementById("searchBtn");
+const searchInput = document.getElementById("searchInput");
+
+searchBtn.addEventListener("click", () => {
+    const keyword = searchInput.value.trim();
+    const tab = new URLSearchParams(window.location.search).get("tab");
+
+    if (tab === "subscribed") {
+        loadVideos("data/subscribed.json", keyword);
+    } else {
+        loadVideos("data/videos.json", keyword);
+    }
+});
+
+searchInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") searchBtn.click();
 });
